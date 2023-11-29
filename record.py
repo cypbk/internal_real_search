@@ -26,15 +26,15 @@ def generate_display():
     target_dict = {'blue_1':'Tale',
                    'blue_2':'Across',
                    'blue_3':'Diary',
-                   'red_1':'Whispers',
-                   'red_2':'Global',
-                   'red_3':'Pen',
-                   'green_1':'Yesterday',
-                   'green_2':'Explore',
-                   'green_3':'Creativity',
-                   'yellow_1':'Beyond',
-                   'yellow_2':'Political',
-                   'yellow_3':'Through'
+                   'yellow_1':'Whispers',
+                   'yellow_2':'Global',
+                   'yellow_3':'Pen',
+                   'green_1':'Beyond',
+                   'green_2':'Political',
+                   'green_3':'Through',
+                   'red_1':'Explore',
+                   'red_2':'Yesterday',
+                   'red_3':'Creativity'
                   }
 
     data_column_1 = np.tile(np.arange(1, 5), 2)
