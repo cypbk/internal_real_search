@@ -26,7 +26,7 @@ def generate_display():
     target_dict = {'blue_1':'Tale',
                    'blue_2':'Across',
                    'blue_3':'Diary',
-                   'yellow_1':'Whispers',
+                   'yellow_1':'Whisper',
                    'yellow_2':'Global',
                    'yellow_3':'Pen',
                    'green_1':'Beyond',
