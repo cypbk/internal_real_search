@@ -1,0 +1,4 @@
+pandas
+numpy
+random
+streamlit >= 1.23.1
