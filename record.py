@@ -75,11 +75,14 @@ def generate_display():
     data = {
         'Memory_color': array_final[:,0],
         'Target_shade': array_final[:,1],
-        'Target_word': array_final[:,2]
+        'Target_word': array_final[:,2],
     }
 
     df_display = pd.DataFrame(data)
     df_display['Result'] = ''
+    df_display.Result = df_display.Result.astype("category")
+    df_display.Result = df_display.Result.cat.add_categories(("successed", "failed"))
+    
     df_display['RT'] = np.nan
     
     return df_display
