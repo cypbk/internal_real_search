@@ -107,6 +107,6 @@ edited_df = st.data_editor(st.session_state['df'], hide_index=True,
                            use_container_width=True, 
                            disabled=['Memory_color', 'Target_shade', 'Target_word'])
 
-st.download_button('Download annotations as .csv', edited_df.to_csv(), 
+st.download_button('Download trial information as .csv', edited_df.to_csv(), 
                 f'data_{p_id}_{p_gender}_{p_age}.csv',
                 use_container_width=True)
