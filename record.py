@@ -14,11 +14,12 @@ def generate_list():
     return result
 
 def generate_display():
-    array = np.zeros((8, 1))
+    array_memory_num = np.empty((8, 1), dtype='int')
     # color of search word
     array_color = np.empty((8, 1), dtype='object')
     # color to be memorized
     array_memory = np.empty((8, 1), dtype='object')
+    array_memory_out = np.empty((8, 1), dtype='object')
     array_shade_num = np.empty((8, 1), dtype='int')
     array_shade = np.empty((8,1), dtype='object')
     array_target = np.empty((8,1), dtype='object')
@@ -61,12 +62,17 @@ def generate_display():
         random_numbers = random.sample([1, 2, 3], 2)
         array_shade_num[i,0] = random_numbers[0]
         array_shade_num[i+4,0] = random_numbers[1]
+        
+        random_numbers_memory = random.sample([1, 2, 3], 2)
+        array_memory_num[i,0] = random_numbers_memory[0]
+        array_memory_num[i+4,0] = random_numbers_memory[1]
 
     for i in range(8):
+        array_memory_out[i,0] = f'{array_memory[i,0]}_{array_memory_num[i,0]}'
         array_shade[i,0] = f'{array_color[i,0]}_{array_shade_num[i,0]}'
         array_target[i,0] = target_dict[array_shade[i,0]]
 
-    array_final = np.hstack((array_memory, array_shade, array_target))
+    array_final = np.hstack((array_memory_out, array_shade, array_target))
     
     #print(array_final)    
     np.random.shuffle(array_final)
