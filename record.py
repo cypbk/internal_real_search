@@ -75,7 +75,7 @@ def generate_display():
     array_final = np.hstack((array_memory_out, array_shade, array_target))
     
     #print(array_final)    
-    np.random.shuffle(array_final)
+    #np.random.shuffle(array_final)
     #print(array_final)
 
     data = {
