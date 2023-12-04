@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import random
 import pandas as pd
+import re
 
 
 @st.cache_data
@@ -72,6 +73,18 @@ def generate_display():
         array_shade[i,0] = f'{array_color[i,0]}_{array_shade_num[i,0]}'
         array_target[i,0] = target_dict[array_shade[i,0]]
 
+    seen = set()
+    for i, element in np.ndenumerate(array_memory_out):
+        match = re.match(r'(\w+_)(\d)', element)
+        if match:
+            prefix, number = match.groups()
+            if element in seen:
+                new_number = str((int(number) % 3) + 1)  # 修改第二个重复元素的数字，确保在1到3的范围内且不同于第一个重复元素
+                array_memory_out[i] = prefix + new_number
+            else:
+                seen.add(element)
+    
+    
     array_final = np.hstack((array_memory_out, array_shade, array_target))
     
     #print(array_final)    
