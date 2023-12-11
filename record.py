@@ -93,7 +93,7 @@ def generate_display():
 
     data = {
         'Memory_color': array_final[:,0],
-        'Target_shade': array_final[:,1],
+        'Target_color': array_final[:,1],
         'Target_word': array_final[:,2],
     }
 
