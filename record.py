@@ -98,9 +98,6 @@ def generate_display():
     }
 
     df_display = pd.DataFrame(data)
-    df_display['Result'] = ''
-    df_display.Result = df_display.Result.astype("category")
-    df_display.Result = df_display.Result.cat.add_categories(("successed", "failed"))
     
     df_display['RT'] = np.nan
     
