@@ -14,7 +14,7 @@ def generate_list():
             result.append(num)
     return result
 
-def generate_display():
+def generate_display(t_round):
     array_memory_num = np.empty((8, 1), dtype='int')
     # color of search word
     array_color = np.empty((8, 1), dtype='object')
@@ -25,20 +25,72 @@ def generate_display():
     array_shade = np.empty((8,1), dtype='object')
     array_target = np.empty((8,1), dtype='object')
 
-    target_dict = {'blue_1':'Tale',
-                   'blue_2':'Across',
-                   'blue_3':'Diary',
-                   'yellow_1':'Whisper',
-                   'yellow_2':'Global',
-                   'yellow_3':'Pen',
-                   'green_1':'Beyond',
-                   'green_2':'Political',
-                   'green_3':'Through',
-                   'red_1':'Explore',
-                   'red_2':'Yesterday',
-                   'red_3':'Creativity'
-                  }
 
+    dict_1 = {'blue_1':'Tale',
+              'blue_2':'Across',
+              'blue_3':'Diary',
+              'yellow_1':'Whisper',
+              'yellow_2':'Global',
+              'yellow_3':'Pen',
+              'green_1':'Beyond',
+              'green_2':'Political',
+              'green_3':'Through',
+              'red_1':'Explore',
+              'red_2':'Yesterday',
+              'red_3':'Creativity'
+              }
+
+    dict_2 = {'blue_1':'Teaching',
+              'blue_2':'Messages',
+              'blue_3':'Journey',
+              'yellow_1':'Passport',
+              'yellow_2':'Universe',
+              'yellow_3':'Maze',
+              'green_1':'Science',
+              'green_2':'Classroom',
+              'green_3':'Travel',
+              'red_1':'Quest',
+              'red_2':'Hidden',
+              'red_3':'Curve'
+              }
+    
+    dict_3 = {'blue_1':'Understand',
+              'blue_2':'Core',
+              'blue_3':'Ride',
+              'yellow_1':'Office',
+              'yellow_2':'Wellness',
+              'yellow_3':'Voice',
+              'green_1':'Business',
+              'green_2':'Human',
+              'green_3':'Showcase',
+              'red_1':'Leaders',
+              'red_2':'Body',
+              'red_3':'Stage'
+              }
+    
+    dict_e = {'blue_1':'',
+              'blue_2':'',
+              'blue_3':'',
+              'yellow_1':'',
+              'yellow_2':'',
+              'yellow_3':'',
+              'green_1':'',
+              'green_2':'',
+              'green_3':'',
+              'red_1':'',
+              'red_2':'',
+              'red_3':''
+              }
+
+    if t_round == 1:
+        target_dict = dict_1
+    elif t_round == 2:
+        target_dict = dict_2
+    elif t_round == 3:
+        target_dict = dict_3
+    else:
+        target_dict = dict_e
+    
     data_column_1 = np.tile(np.arange(1, 5), 2)
     array_color[data_column_1 == 1] = 'blue'
     array_color[data_column_1 == 2] = 'red'
@@ -103,26 +155,37 @@ def generate_display():
     
     return df_display
 
+def set_trials():
+    st.session_state['clicked'] = True
+    st.session_state['df'] = generate_display(t_round)
+
 st.sidebar.header('Participant information')
 p_id = st.sidebar.text_input('Participant ID', 'test')
 gender_options = ['unknow', 'female', 'male']
 p_gender = st.sidebar.selectbox('Participant gender', gender_options)
 p_age = st.sidebar.text_input('Participant age', '999')
-#st.sidebar.button(label="Initiate", key="btn_init")
+round_options = [0, 1, 2, 3]
+st.session_state['round'] = st.sidebar.selectbox(label = 'Round', options= round_options, index= 0)
+st.sidebar.button(label='Set Trials', on_click = set_trials)
 
 # body
-
 # Initialization
+if 'clicked' not in st.session_state:
+    st.session_state['clicked'] = False
+
+if 'round' not in st.session_state:
+    st.session_state['round'] = 0
+
+t_round = st.session_state['round']
+
 if 'df' not in st.session_state:
-    st.session_state['df'] = generate_display()
-
-
+    st.session_state['df'] = generate_display(t_round)
+    
 st.title('Trial information')
-#display_df = generate_display()
 edited_df = st.data_editor(st.session_state['df'], hide_index=True, 
                            use_container_width=True, 
                            disabled=['Memory_color', 'Target_shade', 'Target_word'])
 
 st.download_button('Download trial information as .csv', edited_df.to_csv(), 
-                f'data_{p_id}_{p_gender}_{p_age}.csv',
+                f'data_{p_id}_{p_gender}_{p_age}_r{t_round}.csv',
                 use_container_width=True)
